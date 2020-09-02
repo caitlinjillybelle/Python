@@ -5,13 +5,11 @@ import time
 import random
 import sys
 
-
 def print_same_line(text):
     sys.stdout.write('\r')
     sys.stdout.flush()
     sys.stdout.write(text)
     sys.stdout.flush()
-
 
 class InstaThot:
     def __init__(self, username, password):
@@ -25,10 +23,10 @@ class InstaThot:
     def login(self):
         driver = self.driver
         driver.get('http://www.instagram.com/')
-        time.sleep(5)
+        time.sleep(5 + random.randint(2, 4))
         login_button = driver.find_element_by_xpath("//a[@href='/accounts/login/?source=auth_switcher']")
         login_button.click()
-        time.sleep(2)
+        time.sleep(2 + random.randint(2, 4))
         user_name_elem = driver.find_element_by_xpath("//input[@name='username']")
         user_name_elem.clear()
         user_name_elem.send_keys(self.username)
@@ -36,7 +34,7 @@ class InstaThot:
         passworword_elem.clear()
         passworword_elem.send_keys(self.password)
         passworword_elem.send_keys(Keys.RETURN)
-        time.sleep(2)
+        time.sleep(2 + random.randint(2, 4))
 
     def like_photo(self, hashtag):
         driver = self.driver
@@ -75,7 +73,7 @@ class InstaThot:
                         "#" + hashtag + ': unique photos left: ' + str(unique_photos) + " | Sleeping " + str(second))
                     time.sleep(5 + random.randint(2, 4))
             except Exception as e:
-                time.sleep(5)
+                time.sleep(5 + random.randint(2, 4))
             unique_photos -= 1
 
 if __name__ == "__main__":
@@ -83,25 +81,21 @@ if __name__ == "__main__":
     username = "USERNAME"
     password = "PASSWORD"
 
-    caitlinjillybelleIG = InstaThot("caitlinjillybelle", "Coffeeandgold28")
-    caitlinjillybelleIG.login()
+    IGusername = InstaThot("IGusername", "PASSWORD")
+    IGusername.login()
 
-    hashtags = ['amazing', 'beautiful', 'adventure', 'photography', 'nofilter',
-                'instaart', 'artsy', 'l4l', 'newzealand', 'artist', 'fun', 'happy',
-                'art', 'nzart', 'me', 'art', 'botanical', 'oilpaint', 'cinema',
-                'love', 'instaart', 'instagood', 'followme', 'watercolour', 'illustration', 'family',
-                'aotearoa', 'botanicalillustration', 'beauty', 'artstudio', 'pretty', 'vintage', 'nz', 'nature']
+    hashtags = ['tag1', 'tag2']
 
     while True:
         try:
             # Choose a random tag from the list of tags
             tag = random.choice(hashtags)
-            caitlinjillybelleIG.like_photo(tag)
+            IGusername.like_photo(tag)
         except Exception:
-            caitlinjillybelleIG.closeBrowser()
-            time.sleep(60)
-            caitlinjillybelleIG = InstaThot("caitlinjillybelle", "Coffeeandgold28")
-            caitlinjillybelleIG.login()
+            IGusername.closeBrowser()
+            time.sleep(5+ random.randint(2, 4))
+            IGusername = InstaThot("IGusername", "PASSWORD")
+            IGusername.login()
 
 # testing webdriver
 # browser = webdriver.Chrome('./chromedriver')
